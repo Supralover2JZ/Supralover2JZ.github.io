@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My Website</title>
-  </head>
-  <body>
-    <h1>Hello 👋</h1>
-    <p>This is my first site!</p>
-  </body>
+<head>
+  <title>Click Game</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: #111;
+      color: white;
+    }
+    button {
+      padding: 20px 40px;
+      font-size: 20px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 Click Game</h1>
+  <p>Score: <span id="score">0</span></p>
+  <p>Time left: <span id="time">10</span>s</p>
+
+  <button onclick="clickGame()">CLICK ME</button>
+
+  <script>
+    let score = 0;
+    let timeLeft = 10;
+    let gameRunning = true;
+
+    function clickGame() {
+      if (!gameRunning) return;
+      score++;
+      document.getElementById("score").innerText = score;
+    }
+
+    let timer = setInterval(() => {
+      timeLeft--;
+      document.getElementById("time").innerText = timeLeft;
+
+      if (timeLeft <= 0) {
+        gameRunning = false;
+        clearInterval(timer);
+        alert("Game over! Your score: " + score);
+      }
+    }, 1000);
+  </script>
+
+</body>
 </html>
