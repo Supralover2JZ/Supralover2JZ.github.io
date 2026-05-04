@@ -1,52 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Click Game</title>
+  <title>Mini Game UI</title>
   <style>
     body {
-      text-align: center;
       font-family: Arial;
+      text-align: center;
       background: #111;
       color: white;
     }
-    button {
-      padding: 20px 40px;
-      font-size: 20px;
+
+    #shop {
+      display: none;
       margin-top: 20px;
+      border: 2px solid white;
+      padding: 20px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <h1>🎯 Click Game</h1>
-  <p>Score: <span id="score">0</span></p>
-  <p>Time left: <span id="time">10</span>s</p>
+<h1 id="message">Yo bro 👀 got sum for you</h1>
 
-  <button onclick="clickGame()">CLICK ME</button>
+<button id="shopBtn">🛒 Open Shop</button>
 
-  <script>
-    let score = 0;
-    let timeLeft = 10;
-    let gameRunning = true;
+<div id="shop">
+  <h2>Shop</h2>
+  <p>🔥 Sword - 100 coins</p>
+  <p>🛡 Shield - 80 coins</p>
+  <p>💊 Potion - 20 coins</p>
+</div>
 
-    function clickGame() {
-      if (!gameRunning) return;
-      score++;
-      document.getElementById("score").innerText = score;
-    }
-
-    let timer = setInterval(() => {
-      timeLeft--;
-      document.getElementById("time").innerText = timeLeft;
-
-      if (timeLeft <= 0) {
-        gameRunning = false;
-        clearInterval(timer);
-        alert("Game over! Your score: " + score);
-      }
-    }, 1000);
-  </script>
+<script src="game.js"></script>
 
 </body>
 </html>
