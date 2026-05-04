@@ -1,41 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mini Game UI</title>
+  <title>Apple Shooter</title>
   <style>
     body {
-      font-family: Arial;
-      text-align: center;
+      margin: 0;
       background: #111;
       color: white;
+      text-align: center;
+      font-family: Arial;
     }
 
-    #shop {
-      display: none;
-      margin-top: 20px;
-      border: 2px solid white;
-      padding: 20px;
-    }
-
-    button {
-      font-size: 20px;
-      padding: 10px 20px;
-      cursor: pointer;
+    canvas {
+      display: block;
+      margin: auto;
+      background: #222;
     }
   </style>
 </head>
 <body>
 
-<h1 id="message">Yo bro 👀 got sum for you</h1>
+<h2>🍎 Apple Shooter</h2>
+<p>Score: <span id="score">0</span> | Level: <span id="level">1</span></p>
 
-<button id="shopBtn">🛒 Open Shop</button>
-
-<div id="shop">
-  <h2>Shop</h2>
-  <p>🔥 Sword - 100 coins</p>
-  <p>🛡 Shield - 80 coins</p>
-  <p>💊 Potion - 20 coins</p>
-</div>
+<canvas id="gameCanvas" width="600" height="400"></canvas>
 
 <script src="game.js"></script>
 
