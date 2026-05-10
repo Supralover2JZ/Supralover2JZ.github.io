@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Engine Simulator</title>
+  <title>Rev Simulator v3</title>
   <style>
     body {
-      background: black;
-      color: lime;
+      background: #111;
+      color: white;
       text-align: center;
       font-family: Arial;
+    }
+
+    #bar {
+      width: 320px;
+      height: 18px;
+      background: #333;
+      margin: 20px auto;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    #fill {
+      height: 100%;
+      width: 0%;
+      background: red;
+      transition: width 0.05s;
     }
   </style>
 </head>
 <body>
 
-<h1>🚗 Engine Simulator</h1>
+<h1>🚗 Rev Simulator v3</h1>
 
 <h2>RPM: <span id="rpm">1000</span></h2>
 <h2>Gear: <span id="gear">1</span></h2>
 
-<p>W = throttle</p>
-<p>S = shift down</p>
-<p>D = shift up</p>
+<div id="bar">
+  <div id="fill"></div>
+</div>
+
+<p>Hold W = throttle | A = downshift | D = upshift</p>
 
 <script src="game.js"></script>
 
