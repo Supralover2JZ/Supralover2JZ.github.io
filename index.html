@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Rev Simulator</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rev Engine Simulator</title>
+<link rel="stylesheet" href="styles.css" /> <!-- optional if you have styles -->
 </head>
-<body style="background:#111;color:white;text-align:center;font-family:Arial;">
+<body>
 
-<h1>🚗 Rev Simulator</h1>
+<h1>Rev Engine Simulator</h1>
+<div id="tachometer">
+  <div id="needle"></div>
+</div>
+<div id="rpmDisplay">RPM: 0</div>
+<button id="revButton">Rev</button>
 
-<h2>RPM: <span id="rpm">1000</span></h2>
-
-<p>Click once, then hold W to rev</p>
+<!-- Engine sound: Replace with your MP3 URL -->
+<audio id="engineSound" src="engine.mp3" loop></audio>
 
 <script src="game.js"></script>
-
 </body>
 </html>
