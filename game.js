@@ -3,12 +3,11 @@ let throttle = false;
 
 const rpmText = document.getElementById("rpm");
 
-// load engine sound
 const engine = new Audio("engine.mp3");
 engine.loop = true;
 engine.volume = 0.5;
 
-// must click first (browser rule)
+// unlock sound (browser rule)
 document.addEventListener("click", () => {
   engine.play();
 }, { once: true });
@@ -25,16 +24,12 @@ document.addEventListener("keyup", (e) => {
 // loop
 function update() {
 
-  if (throttle) {
-    rpm += 100;
-  } else {
-    rpm -= 60;
-  }
+  if (throttle) rpm += 100;
+  else rpm -= 60;
 
   if (rpm < 900) rpm = 900;
   if (rpm > 8000) rpm = 8000;
 
-  // 🔊 THIS is the magic
   engine.playbackRate = rpm / 3000;
 
   rpmText.textContent = Math.floor(rpm);
