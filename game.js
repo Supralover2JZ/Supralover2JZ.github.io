@@ -1,55 +1,37 @@
-let rpm = 1000;
-let throttle = false;
+const needle = document.getElementById('needle');
+const rpmDisplay = document.getElementById('rpmDisplay');
+const revButton = document.getElementById('revButton');
+const engineSound = document.getElementById('engineSound');
 
-const rpmText = document.getElementById("rpm");
+let rpm = 0;
+const maxRPM = 8000; // Max RPM
+const revIncrement = 500; // RPM increase per click
 
-const engine = new Audio("engine.mp3");
-engine.loop = true;
-engine.volume = 0.5;
+// Start engine sound
+engineSound.play();
 
-// preload helps on GitHub Pages
-engine.preload = "auto";
-
-let started = false;
-
-// must be user gesture (browser rule)
-document.addEventListener("click", () => {
-  if (!started) {
-    engine.play()
-      .then(() => {
-        started = true;
-        console.log("Audio started");
-      })
-      .catch(err => console.log("Audio blocked:", err));
-  }
+revButton.addEventListener('click', () => {
+  rpm = Math.min(rpm + revIncrement, maxRPM);
+  updateDisplay();
 });
 
-// controls
-document.addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() === "w") throttle = true;
-});
+function updateDisplay() {
+  // Update RPM display
+  rpmDisplay.textContent = `RPM: ${rpm}`;
 
-document.addEventListener("keyup", (e) => {
-  if (e.key.toLowerCase() === "w") throttle = false;
-});
+  // Map RPM to needle angle (-90 to +90 degrees)
+  const angle = (rpm / maxRPM) * 180 - 90;
+  needle.style.transform = `rotate(${angle}deg)`;
 
-function update() {
-
-  if (throttle) rpm += 120;
-  else rpm -= 80;
-
-  if (rpm < 900) rpm = 900;
-  if (rpm > 8000) rpm = 8000;
-
-  // IMPORTANT: clamp playback rate (prevents silence bugs)
-  let rate = rpm / 3000;
-  engine.playbackRate = Math.max(0.8, Math.min(rate, 2));
-
-  rpmText.textContent = Math.floor(rpm);
-
-  requestAnimationFrame(update);
+  // Change engine sound pitch & speed
+  engineSound.playbackRate = 0.5 + (rpm / maxRPM) * 1.5; // 0.5x to 2.0x
 }
 
-update(); 
-
-
+// RPM decay
+setInterval(() => {
+  if (rpm > 0) {
+    rpm -= 50;
+    if (rpm < 0) rpm = 0;
+    updateDisplay();
+  }
+}, 100);
