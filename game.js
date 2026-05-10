@@ -50,4 +50,9 @@ function update() {
   requestAnimationFrame(update);
 }
 
-update();
+update(); 
+
+
+setTimeout(() => {
+  engine.play();
+}, 1500);
