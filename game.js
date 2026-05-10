@@ -53,6 +53,3 @@ function update() {
 update(); 
 
 
-setTimeout(() => {
-  engine.play();
-}, 1500);
