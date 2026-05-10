@@ -3,15 +3,26 @@ let throttle = false;
 
 const rpmText = document.getElementById("rpm");
 
-// load sound
 const engine = new Audio("engine.mp3");
 engine.loop = true;
 engine.volume = 0.5;
 
-// IMPORTANT: unlock audio
+// preload helps on GitHub Pages
+engine.preload = "auto";
+
+let started = false;
+
+// must be user gesture (browser rule)
 document.addEventListener("click", () => {
-  engine.play();
-}, { once: true });
+  if (!started) {
+    engine.play()
+      .then(() => {
+        started = true;
+        console.log("Audio started");
+      })
+      .catch(err => console.log("Audio blocked:", err));
+  }
+});
 
 // controls
 document.addEventListener("keydown", (e) => {
@@ -22,20 +33,17 @@ document.addEventListener("keyup", (e) => {
   if (e.key.toLowerCase() === "w") throttle = false;
 });
 
-// loop
 function update() {
 
-  if (throttle) {
-    rpm += 120;
-  } else {
-    rpm -= 80;
-  }
+  if (throttle) rpm += 120;
+  else rpm -= 80;
 
   if (rpm < 900) rpm = 900;
   if (rpm > 8000) rpm = 8000;
 
-  // sound reacts to RPM
-  engine.playbackRate = rpm / 3000;
+  // IMPORTANT: clamp playback rate (prevents silence bugs)
+  let rate = rpm / 3000;
+  engine.playbackRate = Math.max(0.8, Math.min(rate, 2));
 
   rpmText.textContent = Math.floor(rpm);
 
